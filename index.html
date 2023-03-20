@@ -3,89 +3,66 @@
 </head>
 <body>
 <center>
+<h2>
 <script language="JavaScript1.2">
 
 /*
-Shock Wave Text script- By ejl@worldmailer.com
-Submitted to and featured on Dynamic Drive (www.dynamicdrive.com)
-For full source code, usage terms, and 100's more DHTML scripts, visit http://dynamicdrive.com
+Neon Lights Text
+By JavaScript Kit (http://javascriptkit.com)
+For this script, TOS, and 100s more DHTML scripts,
+Visit http://www.dynamicdrive.com
 */
 
-var size = 25;
-var speed_between_messages=1500  //in miliseconds
+var message="Discord Tips Blog"
+var neonbasecolor="black"
+var neontextcolor="blue"
+var flashspeed=100  //in milliseconds
 
+///No need to edit below this line/////
 
-var tekst = new Array()
-{
-tekst[0] = "Discord Tips Blog";
-tekst[1] = "For everything Discord";
+var n=0
+if (document.all||document.getElementById){
+document.write('<font color="'+neonbasecolor+'">')
+for (m=0;m<message.length;m++)
+document.write('<span id="neonlight'+m+'">'+message.charAt(m)+'</span>')
+document.write('</font>')
 }
-var klaar = 0;
-var s = 0;
-var veran =0;
-var tel = 0;
-function bereken(i,Lengte)
-{
-return (size*Math.abs( Math.sin(i/(Lengte/3.14))) );
-}
+else
+document.write(message)
 
-function motor(p)
-{
-var output = "";
-for(w = 0;w < tekst[s].length - klaar+1; w++)
-{
-q = bereken(w/2 + p,16);
-if (q > size - 0.5)
-{klaar++;}
-if (q < 5)
-{tel++;
-if (tel > 1)
-{
-tel = 0;
-if (veran == 1)
-{
-veran = 0;
-s++;
-if ( s == tekst.length)
-{s = 0;}
-p = 0;
-if (window.loop)
-{clearInterval(loop)}
-loop = motor();
-}
-}
-}
-output += "<font style='font-size: "+ q +"pt'>" +tekst[s].substring(w,w+1)+ "</font>";	
-}
-for(k=w;k<klaar+w;k++)
-{ 
-output += "<font style='font-size: " + size + "pt'>" +tekst[s].substring(k,k+1)+ "</font>";
-}
-idee.innerHTML = output;	
+function crossref(number){
+var crossobj=document.all? eval("document.all.neonlight"+number) : document.getElementById("neonlight"+number)
+return crossobj
 }
 
-function startmotor(p){
-if (!document.all)
+function neon(){
+
+//Change all letters to base color
+if (n==0){
+for (m=0;m<message.length;m++)
+//eval("document.all.neonlight"+m).style.color=neonbasecolor
+crossref(m).style.color=neonbasecolor
+}
+
+//cycle through and change individual letters to neon color
+crossref(n).style.color=neontextcolor
+
+if (n<message.length-1)
+n++
+else{
+n=0
+clearInterval(flashing)
+setTimeout("beginneon()",1500)
 return
-var loop = motor(p); 
-if (window.time)
-{clearInterval(time)}
-if (klaar == tekst[s].length)
-{
-klaar = 0;
-veran = 1;
-tel = 0;
-var time = setTimeout("startmotor(" +(p+1) + ")", speed_between_messages);
-}else
-{	
-var time =setTimeout("startmotor(" +(p+1) + ")", 50);
+}
 }
 
+function beginneon(){
+if (document.all||document.getElementById)
+flashing=setInterval("neon()",flashspeed)
 }
+beginneon()
+
 
 </script>
-
-<div ID="idee"></div>
-
-</center>
-</body>
+</h2>
